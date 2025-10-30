@@ -1,43 +1,94 @@
 # MADDPG on Multi-Agent Particle Environment (MPE)
 
-This project implements the Multi-Agent Deep Deterministic Policy Gradient (MADDPG) algorithm on the Multi-Agent Particle Environment (MPE). The environment involves multiple agents interacting in a 2D continuous space, performing cooperative or competitive tasks.
+An implementation of Multi-Agent Deep Deterministic Policy Gradient (MADDPG) applied to the
+Multi-Agent Particle Environment (MPE). The environment contains multiple agents in a 2D
+continuous space performing cooperative and/or competitive tasks.
 
-## Project Structure
+## Features
 
-- `configs/` - Configuration files for training and environment parameters.
-- `envs/` - Environment wrappers for MPE scenarios.
-- `maddpg/` - MADDPG core algorithm implementation including agents, replay buffer, models, and training.
-- `scripts/` - Scripts to run training and evaluation.
-- `results/` - Logs, model checkpoints, and results.
+- MADDPG algorithm implementation (agents, critics, replay buffer, training loop)
+- Environment wrappers for MPE scenarios
+- Config-driven training and evaluation
 
-## Setup
+## Repository structure
 
-1. Clone the repo.
-2. Install dependencies:
+- `configs/` — YAML configuration files for training and environment parameters.
+- `envs/` — Environment wrappers and utilities for MPE scenarios.
+- `maddpg/` — Core MADDPG implementation: agents, networks, replay buffer, trainers.
+- `scripts/` — Convenience scripts for training and testing.
+- `results/` — Logs, tensorboard data, model checkpoints and evaluation outputs.
 
+## Requirements
+
+Python 3.8+ and the Python packages listed in `requirements.txt`.
+
+Install dependencies with:
+
+```bash
 pip install -r requirements.txt
+```
 
-text
+## Configuration
 
-3. Adjust the training and environment parameters in `configs/maddpg_mpe_config.yaml`.
+Edit training and environment parameters in `configs/maddpg_mpe_config.yaml` before running.
+The config controls learning rates, number of agents, environment name, seed, logging options,
+and checkpoint paths.
 
-## Running Training
+## Running
 
-To start training, run:
+Start training with:
 
-python scripts/train.py
+```bash
+python scripts/train.py --config configs/maddpg_mpe_config.yaml
+```
 
-text
+Evaluate a trained model with:
 
-## Testing
+```bash
+python scripts/test.py --checkpoint results/checkpoint.pth --config configs/maddpg_mpe_config.yaml
+```
 
-To evaluate the trained agents, run:
+Replace the arguments above as needed (different config, checkpoint path, or extra flags supported
+by the scripts).
 
-python scripts/test.py
+## Quick example
 
-text
+1. Tweak `configs/maddpg_mpe_config.yaml` to your desired settings.
+2. Train:
+
+```bash
+python scripts/train.py --config configs/maddpg_mpe_config.yaml
+```
+
+3. After training, evaluate or visualize results:
+
+```bash
+python scripts/test.py --checkpoint results/latest_checkpoint.pth --config configs/maddpg_mpe_config.yaml
+```
+
+## Notes
+
+- This repo assumes standard MPE scenarios. If you add custom environments, update `envs/` and the
+	corresponding config entries.
+- Checkpoints and logs are saved to the path configured in the YAML config (commonly `results/`).
 
 ## References
 
 - Lowe et al., "Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments" (MADDPG)
 - Multi-Agent Particle Environment (MPE) by OpenAI
+
+## Contributing
+
+Contributions welcome — please open an issue or a pull request. For major changes, describe
+the proposal first so we can discuss design and testing.
+
+## License
+
+Specify your license here (e.g., MIT). If you don't have a license yet, add one to the repository.
+
+---
+
+If you'd like, I can also:
+
+- Add badges (build, license, coverage) to the top of the README.
+- Generate a short `CONTRIBUTING.md` and `LICENSE` file.
